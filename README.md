@@ -1,6 +1,7 @@
 # CSCI3700HW3
 This project is a homework assignment for CSCI3700. Its purpose is to use Flask, PostgreSQL, and HTML to access a database and display it as a website. It will also update a table when opening the "/api/update_basket_a" route, and will display unique entries when opening the "/api/unique" route. 
-
+##members
+Adam Bott - botta19@students.ecu.edu
 ## Quick Start
 ### Local Test Setup
 First, we need to install a Python 3 virtual environment with:
