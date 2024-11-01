@@ -45,6 +45,43 @@ def index():
     # the file named index.html under templates folder
     return render_template('index.html', sql_table = log, table_title=col_names)
 
+#Code for HW
+@app.route('/api/update_basket_a')
+def update_basket():
+	#connect to to database
+	cursor, connection = util.connect_to_db(username,password,host,port,database)
+	#insert new record into basket a
+	record = util.run_and_fetch_sql(cursor, "INSERT INTO basket_a VALUES (5, 'Cherry');")
+	#success or error message indicator
+	if record == -1:
+		print('Error')
+	else:
+		print('Success!')
+		#retrive column name and store inserted record 
+		col_names = [desc[0] for desc in cursor.description]
+		log = record[:]
+	#disconnect from database
+	util.disconnect_from_db(connection,cursor)
+	#render HTML table
+	return render_template('index.html', sql_table = log, table_title=col_names)
+
+@app.route('/api/unique')
+def show_unique():
+	#connect to database
+	cursor, connection = util.connect_to_db(username,password,host,port,database)
+	#command to select unique fruits from baskets 
+	record = util.run_and_fetch_sql(cursor, "SELECT UNIQUE fruit from basket_a, basket_b")
+	if record == -1:
+		print('Error')
+	else:
+		col_names = [desc[0] for desc in cursor.description]
+		log = record[:]
+		
+	#disconnect database
+	util.disconnect_from_db(connection,cursor)
+	#render HTML table
+	return render_template('index.html', sql_table = log, table_title=col_names)
+
 
 if __name__ == '__main__':
 	# set debug mode
